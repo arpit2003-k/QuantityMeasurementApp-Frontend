@@ -1,0 +1,195 @@
+<div class="dash-page">
+  <div class="dash-wrapper">
+
+    <!-- HEADER -->
+    <div class="dash-header">
+      <h2>Welcome To Quantity Measurement</h2>
+      <div class="header-right">
+        <div class="user-avatar">{{ userInitial }}</div>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="dash-body">
+
+      <!-- CHOOSE TYPE -->
+      <p class="section-label">CHOOSE TYPE</p>
+      <div class="type-grid">
+        <div
+          class="type-card"
+          *ngFor="let t of measurementTypes"
+          [class.active]="selectedType === t.key"
+          (click)="selectType(t.key)">
+          <img [src]="t.icon" [alt]="t.label">
+          <span>{{ t.label }}</span>
+        </div>
+      </div>
+
+      <!-- CHOOSE ACTION -->
+      <p class="section-label">CHOOSE ACTION</p>
+      <div class="action-tabs">
+        <button class="action-tab" [class.active]="selectedAction === 'compare'"  (click)="selectAction('compare')">Compare</button>
+        <button class="action-tab" [class.active]="selectedAction === 'convert'"  (click)="selectAction('convert')">Convert</button>
+        <button class="action-tab" [class.active]="selectedAction === 'arithmetic'" (click)="selectAction('arithmetic')">Arithmetic</button>
+      </div>
+
+      <!-- ===== COMPARE / CONVERT PANEL ===== -->
+      <div *ngIf="selectedAction === 'compare' || selectedAction === 'convert'">
+        <form [formGroup]="compareForm" (ngSubmit)="onCalculate()" novalidate>
+
+          <div class="two-col">
+            <!-- FROM -->
+            <div class="col-block">
+              <span class="col-label">FROM</span>
+              <input class="big-input" type="number" formControlName="value1" placeholder="0">
+              <span class="field-error" *ngIf="compareForm.get('value1')?.invalid && compareForm.get('value1')?.touched">
+                Required
+              </span>
+              <div class="select-wrap">
+                <select formControlName="unit1">
+                  <option *ngFor="let u of currentUnits" [value]="u">{{ u }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- TO -->
+            <div class="col-block">
+              <span class="col-label">TO</span>
+              <input class="big-input" type="number" formControlName="value2" placeholder="0">
+              <span class="field-error" *ngIf="compareForm.get('value2')?.invalid && compareForm.get('value2')?.touched">
+                Required
+              </span>
+              <div class="select-wrap">
+                <select formControlName="unit2">
+                  <option *ngFor="let u of currentUnits" [value]="u">{{ u }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="calc-btn" [disabled]="compareLoading">
+            {{ compareLoading ? 'Calculating...' : 'Calculate' }}
+          </button>
+
+          <!-- RESULT -->
+          <div class="result-box" *ngIf="compareResult">
+            <p class="result-label">RESULT</p>
+            <p class="result-value" [class.result-error]="compareResult.error">
+              {{ formatResult(compareResult) }}
+            </p>
+          </div>
+
+          <!-- ERROR -->
+          <div class="result-box error-box" *ngIf="compareError">
+            <p class="result-label">ERROR</p>
+            <p class="result-value result-error">{{ compareError }}</p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- ===== ARITHMETIC PANEL ===== -->
+      <div *ngIf="selectedAction === 'arithmetic'">
+
+        <!-- SUB TABS -->
+        <div class="arith-sub-tabs">
+          <button class="arith-sub" [class.active]="selectedArithOp === 'add'"      (click)="selectArithOp('add')">Add</button>
+          <button class="arith-sub" [class.active]="selectedArithOp === 'subtract'" (click)="selectArithOp('subtract')">Subtract</button>
+          <button class="arith-sub" [class.active]="selectedArithOp === 'divide'"   (click)="selectArithOp('divide')">Divide</button>
+        </div>
+
+        <form [formGroup]="arithForm" (ngSubmit)="onArithCalculate()" novalidate>
+
+          <div class="arith-row">
+            <!-- VALUE 1 -->
+            <div class="col-block" style="flex:1">
+              <span class="col-label">VALUE 1</span>
+              <input class="big-input" type="number" formControlName="value1" placeholder="0">
+              <div class="select-wrap">
+                <select formControlName="unit1">
+                  <option *ngFor="let u of currentUnits" [value]="u">{{ u }}</option>
+                </select>
+              </div>
+            </div>
+
+            <span class="arith-op">{{ arithSymbol }}</span>
+
+            <!-- VALUE 2 -->
+            <div class="col-block" style="flex:1">
+              <span class="col-label">VALUE 2</span>
+              <input class="big-input" type="number" formControlName="value2" placeholder="0">
+              <div class="select-wrap">
+                <select formControlName="unit2">
+                  <option *ngFor="let u of currentUnits" [value]="u">{{ u }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- TARGET UNIT -->
+          <div class="col-block" style="margin-bottom:16px" *ngIf="selectedArithOp !== 'divide'">
+            <span class="col-label">TARGET UNIT</span>
+            <div class="select-wrap">
+              <select formControlName="unitTarget">
+                <option *ngFor="let u of currentUnits" [value]="u">{{ u }}</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="calc-btn" [disabled]="arithLoading">
+            {{ arithLoading ? 'Calculating...' : 'Calculate' }}
+          </button>
+
+          <!-- RESULT -->
+          <div class="result-box" *ngIf="arithResult">
+            <p class="result-label">RESULT</p>
+            <p class="result-value" [class.result-error]="arithResult.error">
+              {{ formatResult(arithResult) }}
+            </p>
+          </div>
+
+          <!-- ERROR -->
+          <div class="result-box error-box" *ngIf="arithError">
+            <p class="result-label">ERROR</p>
+            <p class="result-value result-error">{{ arithError }}</p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- ===== HISTORY ===== -->
+      <div class="history-section">
+        <div class="history-header">
+          <h3 class="section-label" style="margin-top:0">History</h3>
+          <div style="display:flex;gap:8px">
+            <button class="hist-btn" [class.active]="historyMode === 'all'"     (click)="setHistoryMode('all')">All</button>
+            <button class="hist-btn" [class.active]="historyMode === 'errored'" (click)="setHistoryMode('errored')">Errors</button>
+          </div>
+        </div>
+
+        <p *ngIf="historyLoading" style="color:#888;font-size:0.85rem;margin-top:12px">Loading...</p>
+
+        <p *ngIf="!historyLoading && history.length === 0" style="color:#aaa;font-size:0.85rem;margin-top:12px">
+          No history yet.
+        </p>
+
+        <div class="history-list" *ngIf="!historyLoading && history.length > 0">
+          <div class="history-item" *ngFor="let item of history">
+            <div>
+              <span style="font-size:0.8rem;color:#555">
+                {{ item.thisValue }} {{ item.thisUnit }}
+                {{ item.operation }}
+                {{ item.thatValue }} {{ item.thatUnit }}
+              </span>
+            </div>
+            <span class="hist-result" [style.color]="item.error ? '#c62828' : '#5c6bc0'">
+              {{ formatHistoryResult(item) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dash-body -->
+  </div><!-- /dash-wrapper -->
+</div>

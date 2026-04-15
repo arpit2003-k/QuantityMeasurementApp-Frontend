@@ -1,0 +1,387 @@
+/* PAGE */
+.dash-page {
+  min-height: 100vh;
+  background: #e8eaf0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px 16px;
+  font-family: Arial, sans-serif;
+}
+
+/* WRAPPER */
+.dash-wrapper {
+  width: 100%;
+  max-width: 540px;
+  background: #f4f5f8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+/* HEADER */
+.dash-header {
+  background: #5c6bc0;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dash-header h2 {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Avatar */
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logout */
+.logout-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* BODY */
+.dash-body {
+  padding: 24px;
+}
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #888;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.section-label:first-child {
+  margin-top: 0;
+}
+
+/* TYPE GRID */
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* TYPE CARD */
+.type-card {
+  background: white;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 14px 8px 10px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+
+/* ICON */
+.type-card img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+/* TEXT */
+.type-card span {
+  font-size: 0.8rem;
+  color: #444;
+  font-weight: 500;
+}
+
+/* HOVER */
+.type-card:hover {
+  border-color: #5c6bc0;
+}
+
+/* ACTIVE CARD */
+.type-card.active {
+  border-color: #5c6bc0;
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(92,107,192,0.15);
+}
+
+/* ACTION TABS */
+.action-tabs {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.action-tab {
+  flex: 1;
+  padding: 9px 0;
+  background: white;
+  border: none;
+  border-right: 1px solid #ddd;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.action-tab:last-child {
+  border-right: none;
+}
+
+/* ACTIVE TAB */
+.action-tab.active {
+  background: #5c6bc0;
+  color: white;
+  font-weight: 600;
+}
+
+/* TWO COLUMN */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* COLUMN BLOCK */
+.col-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.col-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #888;
+}
+
+/* INPUT */
+.big-input {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.big-input::placeholder {
+  color: #ccc;
+}
+
+/* ERROR BORDER */
+.big-input.ng-touched.ng-invalid {
+  border-bottom: 2px solid #c62828;
+}
+
+/* SELECT */
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap select {
+  width: 100%;
+  padding: 8px 28px 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.88rem;
+  cursor: pointer;
+  appearance: none;
+}
+
+/* ARROW */
+.select-wrap::after {
+  content: "›";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  color: #888;
+  pointer-events: none;
+}
+
+/* ERROR TEXT */
+.field-error {
+  font-size: 0.75rem;
+  color: #c62828;
+}
+
+/* BUTTON */
+.calc-btn {
+  width: 100%;
+  padding: 12px;
+  background: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.calc-btn:hover:not(:disabled) {
+  background: #4a5ab5;
+}
+
+.calc-btn:disabled {
+  opacity: 0.7;
+}
+
+/* RESULT BOX */
+.result-box {
+  background: white;
+  border-left: 4px solid #5c6bc0;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+/* ERROR RESULT */
+.result-box.error-box {
+  border-left-color: #c62828;
+}
+
+.result-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #888;
+}
+
+.result-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #5c6bc0;
+}
+
+.result-value.result-error {
+  color: #c62828;
+  font-size: 1rem;
+}
+
+/* ARITH */
+.arith-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.arith-op {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding-bottom: 14px;
+}
+
+/* HISTORY */
+.history-section {
+  margin-top: 28px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* FILTER BUTTONS */
+.hist-btn {
+  padding: 4px 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.hist-btn.active {
+  background: #5c6bc0;
+  color: white;
+  border-color: #5c6bc0;
+}
+
+/* LIST */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.history-item {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hist-result {
+  font-weight: 700;
+}
+
+/* ARITHMETIC SUB TABS */
+.arith-sub-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Individual buttons */
+.arith-sub {
+  padding: 6px 18px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: #555;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+/* Active button */
+.arith-sub.active {
+  background: #5c6bc0;
+  color: white;
+  border-color: #5c6bc0;
+}

@@ -1,0 +1,140 @@
+<div class="auth-page">
+
+    <div class="auth-wrapper">
+
+        <!-- LEFT PANEL -->
+        <div class="auth-left">
+            <div class="left-inner">
+                <img src="https://cdn-icons-png.flaticon.com/512/2920/2920349.png" alt="logo" class="brand-img">
+                <h3 class="brand-title">QUANTITY MEASUREMENT APP</h3>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="auth-right">
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn" [class.active]="activeTab === 'login'"
+                    (click)="switchTab('login')">LOGIN</button>
+                <button class="tab-btn" [class.active]="activeTab === 'signup'"
+                    (click)="switchTab('signup')">SIGNUP</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form"
+                novalidate>
+
+                <div class="form-group">
+                    <label>Email Id</label>
+                    <input type="email" formControlName="email" placeholder="you@example.com">
+                    <span class="field-error" *ngIf="lf['email'].invalid && lf['email'].touched">
+                        Enter a valid email
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="pw-wrap">
+                        <input [type]="showLoginPw ? 'text' : 'password'" formControlName="password"
+                            placeholder="••••••••">
+                    </div>
+                    <span class="field-error" *ngIf="lf['password'].invalid && lf['password'].touched">
+                        Password is required
+                    </span>
+                </div>
+
+                <button type="submit" class="submit-btn" [disabled]="loginLoading">
+                    {{ loginLoading ? 'Logging in...' : 'Login' }}
+                </button>
+
+                <!-- GOOGLE LOGIN -->
+                <div class="oauth-separator">
+                    <span>or</span>
+                </div>
+                <a href="http://localhost:8080/oauth2/authorization/google" class="google-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="Google">
+                    Sign in with Google
+                </a>
+
+                <p class="form-msg" [class.success]="loginMsgType === 'success'"
+                    [class.error]="loginMsgType === 'error'">
+                    {{ loginMsg }}
+                </p>
+
+            </form>
+
+            <!-- SIGNUP FORM -->
+            <form *ngIf="activeTab === 'signup'" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="auth-form"
+                novalidate>
+
+                <!-- NAME -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" formControlName="name" placeholder="Name">
+                    <span class="field-error" *ngIf="sf['name'].invalid && sf['name'].touched">
+                        Name must be 2–50 characters
+                    </span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Email Id</label>
+                    <input type="email" formControlName="email" placeholder="email@example.com">
+                    <span class="field-error" *ngIf="sf['email'].invalid && sf['email'].touched">
+                        Enter a valid email
+                    </span>
+                 </div>
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="pw-wrap">
+                        <input [type]="showSignupPw ? 'text' : 'password'" formControlName="password"
+                            placeholder="Min 8 chars">
+                    </div>
+                    <span class="field-error" *ngIf="sf['password'].invalid && sf['password'].touched">
+                        Must have 1 uppercase, 1 lowercase, 1 digit, 1 special char, 8–15 chars
+                    </span>
+                </div>
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="pw-wrap">
+                        <input [type]="showConfirmPw ? 'text' : 'password'" formControlName="confirmPassword"
+                            placeholder="Re-enter password">
+                    </div>
+
+                    <span class="field-error"
+                        *ngIf="signupForm.errors?.['passwordMismatch'] && sf['confirmPassword'].touched">
+                        Passwords do not match
+                    </span>
+                </div>
+
+                <!-- SUBMIT -->
+                <button type="submit" class="submit-btn" [disabled]="signupLoading">
+                    {{ signupLoading ? 'Creating account...' : 'Signup' }}
+                </button>
+
+                <!-- GOOGLE SIGNUP -->
+                <div class="oauth-separator">
+                    <span>or</span>
+                </div>
+                <a href="http://localhost:8080/oauth2/authorization/google" class="google-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="Google">
+                    Continue with Google
+                </a>
+
+                <p class="form-msg" [class.success]="signupMsgType === 'success'"
+                    [class.error]="signupMsgType === 'error'">
+                    {{ signupMsg }}
+                </p>
+
+            </form>
+
+        </div><!-- /auth-right -->
+
+    </div>
+
+</div>
